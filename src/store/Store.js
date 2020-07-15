@@ -3,6 +3,7 @@ import { Reducer, ReducerType } from './Reducer'
 
 const initialState = {
     posts: [],
+    movies: [],
     error: null
 };
 

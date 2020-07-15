@@ -5,6 +5,7 @@ import { Context, ReducerType } from '../../store/Store'
 import Post from '../Post/Post';
 import AddPost from '../Post/AddPost';
 import './Blog.css';
+import PostsData from '../../db/PostsData';
 
 const Blog = () => {
     const [state, dispatch] = useContext(Context);
@@ -19,15 +20,10 @@ const Blog = () => {
         //         dispatch({type: 'SET_ERROR', payload: error});
         //     });
 
-        const postsData = [
-            { id: 1, author: 'Author 1', title: 'Title 1' },
-            { id: 2, author: 'Author 2', title: 'Title 2' },
-            { id: 3, author: 'Author 3', title: 'Title 3' },
-        ];
         dispatch({
             reducer: ReducerType.POST,
             type: 'SET_POSTS',
-            payload: postsData
+            payload: PostsData
         });
     }, []);
 
@@ -48,10 +44,11 @@ const Blog = () => {
     }
 
     return (
-        <>
+        <div style={{ background: '#f5bff2' }}>
             <AddPost />
+            <h1>Posts ({posts ? posts.length : 0})</h1>
             {posts}
-        </>
+        </div>
     );
 };
 

@@ -6,8 +6,8 @@ const AddPost = () => {
     const { register, handleSubmit } = useForm();
     const [, dispatch] = useContext(Context);
 
-    const onSubmit = (e, data) => {
-        const postsData = { author: data.author, title: data.title };
+    const onSubmit = ({ author, title }) => {
+        const postsData = { author, title };
         dispatch({
             reducer: ReducerType.POST,
             type: 'ADD_POST',
@@ -15,11 +15,15 @@ const AddPost = () => {
         });
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            Title: <input ref={register} type="text" name="title" />
-            Auther: <input ref={register} type="text" name="author" />
-            <button>Submit</button>
-        </form>
+        <>
+            <h1>Add Post</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                Title: <input ref={register} type="text" name="title" />
+                Auther: <input ref={register} type="text" name="author" />
+                <button>Add </button>
+            </form>
+            <hr />
+        </>
     )
 }
 

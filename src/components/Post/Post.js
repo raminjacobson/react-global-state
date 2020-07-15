@@ -14,11 +14,10 @@ const Post = (props) => {
 
     return (
         <div>
-            <h1>{props.title}</h1>
-            <br />{props.author}
-            <br />
             <button onClick={handleRemove.bind(null, props.id)}>Remove</button>
-            <hr></hr>
+            &nbsp;
+            <b>{props.title}</b> - by: {props.author}
+            <hr />
         </div>
     )
 }
