@@ -14,10 +14,10 @@ export default function movieReducer(state, action) {
                 movies: state.movies.concat(movie)
             };
         case 'REMOVE_MOVIE':
-            const title = action.payload;
+            const id = action.payload;
             return {
                 ...state,
-                movies: state.movies.filter(movie => movie.title !== title)
+                movies: state.movies.filter(movie => movie._id !== id)
             };
         case 'SET_ERROR':
             return {

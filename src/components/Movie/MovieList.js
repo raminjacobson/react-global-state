@@ -3,31 +3,46 @@ import { Context, ReducerType } from '../../store/Store'
 
 import Movie from './Movie';
 import AddMovie from './AddMovie';
-import MoviesData from '../../db/MoviesData';
+import { getAllMovies } from '../../db/MoviesData';
+
+import LoadingOverlay from 'react-loading-overlay';
 
 
 const MovieList = () => {
     const [state, dispatch] = useContext(Context);
-
+    const loading = state.firstLoad[ReducerType.MOVIE];
     useEffect(() => {
-        dispatch({
-            reducer: ReducerType.MOVIE,
-            type: 'SET_MOVIES',
-            payload: MoviesData
-        });
-    }, []);
+        if (loading) {
+            getAllMovies().then(movies => {
+                dispatch({
+                    reducer: ReducerType.MOVIE,
+                    type: 'SET_MOVIES',
+                    payload: movies,
+                });
+                state.firstLoad[ReducerType.MOVIE] = false;
+            });
+        };
+    }, [state.movies]);
 
     const list = state.movies.map(movie =>
-        <Movie key={movie.title} title={movie.title} year={movie.year} />
+        <Movie key={movie.title} {...movie} />
     );
 
     return (
-        <div style={{ background: '#bff5d4' }}>
-            <AddMovie />
-            <hr />
-            <h1>Movies ({list ? list.length : 0})</h1>
-            {list}
-        </div>
+
+        <LoadingOverlay
+            active={loading}
+            spinner
+            text=''
+        >
+
+            <div style={{ background: '#bff5d4' }}>
+                <AddMovie />
+                <hr />
+                <h1>Movies ({list ? list.length : 0})</h1>
+                {list}
+            </div>
+        </LoadingOverlay>
     );
 }
 

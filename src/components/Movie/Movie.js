@@ -1,21 +1,25 @@
 import React, { useContext } from 'react';
 import { Context, ReducerType } from '../../store/Store';
+import { deleteMovie } from '../../db/MoviesData';
 
 const Movie = (props) => {
     const [, dispatch] = useContext(Context);
 
-    const handleRemove = (title) => {
-        dispatch({
-            reducer: ReducerType.MOVIE,
-            type: 'REMOVE_MOVIE',
-            payload: title
-        });
+    async function handleRemove(id) {
+        deleteMovie(id)
+            .then(() => {
+                dispatch({
+                    reducer: ReducerType.MOVIE,
+                    type: 'REMOVE_MOVIE',
+                    payload: id
+                });
+            })
     }
 
     return (
         <div>
-            <button onClick={handleRemove.bind(null, props.title)}>Remove</button>
-            {`  ${props.title} (${props.year})`}
+            <button onClick={handleRemove.bind(null, props._id)}>Remove</button>
+            {`  ${props.title} (${props.year})`} - {props._id}
             <hr></hr>
         </div>
     )
