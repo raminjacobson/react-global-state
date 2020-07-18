@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Context, ReducerType } from '../../store/Store';
+import { Context, ReducerType, StoreUtil } from '../../store/Store';
 import { addMovie } from '../../db/MoviesData';
 
 const AddMovie = () => {
@@ -19,7 +19,7 @@ const AddMovie = () => {
                 dispatch({
                     reducer: ReducerType.MOVIE,
                     type: 'ADD_MOVIE',
-                    payload: Object.assign(movie, { id: result.id })
+                    payload: StoreUtil.updateId(movie, result._id)
                 });
                 setMovie("");
                 setYear("");

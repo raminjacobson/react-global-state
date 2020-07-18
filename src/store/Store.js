@@ -22,5 +22,9 @@ const Store = ({ children }) => {
 
 const Context = createContext(initialState);
 
-export { Context, ReducerType };
+const StoreUtil = {
+    updateId: (obj, id) => Object.assign(obj, { _id: id })
+}
+
+export { Context, ReducerType, StoreUtil };
 export default Store;

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Context, ReducerType } from '../../store/Store'
+import { Context, ReducerType } from '../../store/Store';
 
 import Post from './Post';
 import AddPost from './AddPost';
